@@ -1,0 +1,10 @@
+version: '2.1'
+
+services:
+  reviews:
+    image: reviews
+    build: .
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3004:3004

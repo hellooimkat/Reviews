@@ -1,0 +1,462 @@
+$font_size: 12.8px;
+$MAIN_COLOR: #ff7346;
+$GREY_DARK: #888;
+$WHITE: #fff;
+$HEADER_FONT_SIZE: 22.4px;
+$USER_DETAIL_COLOR: #666;
+$GREY_777: #777;
+$USER_DETAIL_FONT_SIZE: 11.2px;
+$REVIEW_DETAIL_FONT_SIZE: 12.8px;
+$REVIEW_DETAIL__PROPERTY-RESPONSE-COLOR: #f4f4f4;
+$GREY_DARKER: #333;
+$OTHER_COUNTRY_COLOR: #bbb;
+$BORDER_COLOR: #cccccc;
+$REVIEW_RATING_FONT_SIZE: 16px;
+$SECTION_PADDING: 40px;
+
+#reviews {
+  overflow-x: hidden;
+  font-family: "Noto",Helvetica,Arial,sans-serif;
+  font-size: $font_size;
+
+    .close {
+      box-shadow: none;
+      outline: none;
+    }
+
+    .container-fluid {
+      max-width: 90vw;
+    }
+
+
+
+    .header {
+      font-size: $HEADER_FONT_SIZE;
+      // margin-top: 20px;
+      // margin-bottom: 20px;
+    }
+
+    .btn-hostelworld {
+      color: $WHITE;
+      background: $MAIN_COLOR;
+      font-size: $REVIEW_RATING_FONT_SIZE;
+      font-weight: 700;
+      line-height: 16px;
+    }
+
+    .btn-avgRating {
+      color: $WHITE;
+      background: $MAIN_COLOR;
+      font-size: 22.4px;
+      line-height: 22.4px;
+      cursor: pointer;
+      font-weight: 700;
+      padding: 8px;
+    }
+
+    // .ratingColumn {
+    //   padding: 0;
+    // }
+
+    #reviewsAndRatings {
+      padding: $SECTION_PADDING 0;
+      .btn {
+        cursor: default;
+      }
+
+      .progress {
+        height: 6px;
+      }
+      .progress-bar {
+        background-color: $MAIN_COLOR;
+      }
+
+      #ratingSummary {
+        color: $MAIN_COLOR;
+        padding-bottom: 15px;
+        // border-bottom: 1px $BORDER_COLOR solid;
+        margin: 20px 0;
+
+        .ratingLabel {
+          color: $MAIN_COLOR;
+          line-height: 12.8px;
+          margin-bottom: 5px;
+          font-weight: 700;
+          font-size: 19.2px;
+        }
+      }
+
+      #rankedRating {
+        font-size: 12.8px;
+        line-height: 19.2px;
+        border-bottom: 1px $BORDER_COLOR solid;
+        border-top: 1px rgba($BORDER_COLOR,0.5) dashed;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        color: $GREY_DARKER;
+
+        .rating {
+          font-weight: 700;
+        }
+      }
+    }
+
+    #whosStaying {
+      background-color: #F4F4F4;
+      // padding: $SECTION_PADDING 0;
+      padding-top: 20px;
+      color: #444;
+      .btn-new {
+        color: $WHITE;
+        background: $MAIN_COLOR;
+        font-size: 11.2px;
+        line-height: 11.2px;
+        font-weight: 700;
+        line-height: 16px;
+        border-radius: 3px;
+        align-items: center;
+        // border-color: $GREY_DARK;
+        height: 22.5px;
+        padding: 4.8px;
+        // margin-bottom: 8px;
+        margin-left: 8px;
+      }
+
+      .other-country {
+        height: 64px;
+        width: 64px;
+
+        .other-country-flag {
+          background-color: $OTHER_COUNTRY_COLOR;
+          color: $WHITE;
+          font-size: 20px;
+          border-radius: 0.03rem;
+        }
+      }
+
+      .country-name {
+        font-size: 16px;
+        font-weight: 700;
+      }
+
+      .country-visit {
+        font-size: 12.8px;
+      }
+    }
+
+
+
+    #latestReviews {
+
+      .ratingLabel {
+        color: $MAIN_COLOR;
+        line-height: 12.8px;
+        font-weight: 700;
+      }
+
+      .header {
+        margin-bottom: 30px;
+      }
+
+      #top4Reviews {
+        .btn {
+            cursor: default;
+          }
+        .border-top-gray {
+          margin-top: 15px;
+          border-top: 1px $BORDER_COLOR dashed;
+          padding-top: 4px;
+        }
+
+        .top4Reviews-text {
+          margin-top: 15px;
+          // overflow: hidden;
+          // span  {
+            // height: 6.0rem; /* exactly 5 lines */
+            // text-overflow: -o-ellipsis-lastline;
+          // }
+          // span {
+          //   height: auto;
+          // }
+          // span {
+          //     white-space: nowrap;
+          //     overflow: hidden;
+          //     text-overflow: ellipsis;
+          //     display: inline-block;
+          //     max-width: 100%;
+          // }
+        }
+      }
+
+      #readAllReviews {
+        margin-top: 30px;
+        margin-bottom: 50px;
+
+        .btn-readAllReviews {
+            font-size: 14.4px;
+            border-radius: 0.188rem;
+            color: $MAIN_COLOR;
+            box-shadow: none;
+            background-color: $WHITE;
+            border-color: $MAIN_COLOR; /*set the color you want here*/
+        }
+        .btn-readAllReviews:hover, .btn-readAllReviews:focus, .btn-readAllReviews:active, .btn-readAllReviews.active, .open>.dropdown-toggle.btn-readAllReviews {
+            color: $WHITE;
+            background-color: $MAIN_COLOR;
+            border-color: $MAIN_COLOR; /*set the color you want here*/
+        }
+      }
+    }
+
+
+    #sidebar {
+      // .modal {
+      //   display:block !important;
+      // }
+
+      #sidebar-navbar {
+        border: none;
+        position: fixed;
+        overflow: hidden;
+        top: 0;
+        z-index: 1;
+        color: #444;
+      }
+
+      .modal-content {
+        border: none;
+      }
+      .modal-dialog {
+        width: 100%;
+      }
+
+      .modal.left .modal-dialog {
+        position: fixed;
+        margin: auto;
+        // width: 2000px;
+        height: 100%;
+        -webkit-transform: translate3d(0%, 0, 0);
+        -ms-transform: translate3d(0%, 0, 0);
+        -o-transform: translate3d(0%, 0, 0);
+        transform: translate3d(0%, 0, 0);
+      }
+
+      .modal.left .modal-content {
+        height: 100%;
+        overflow-y: auto;
+      }
+
+      .modal-header {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+      .modal.left .modal-body {
+        padding: 15px 15px 15px;
+      }
+
+      .modal.left.fade .modal-dialog {
+        right: -2000px;
+        -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+        transition: opacity 0.3s linear, right 0.3s ease-out;
+      }
+
+      .modal.left.fade.show .modal-dialog {
+        right: 0;
+      }
+
+      .progress {
+        height: 6px;
+      }
+      .progress-bar {
+        background-color: $MAIN_COLOR;
+      }
+
+      #sidebarHeader {
+        .navbar {
+          padding-top: 10px;
+          padding-bottom: 10px;
+          background-color: #fff;
+          box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
+        }
+        #guideLines {
+          color: $MAIN_COLOR;
+          div {
+            margin-top: 15px;
+            margin-bottom: 15px;
+          }
+        }
+      }
+
+      #sidebarRankedRating {
+        border-bottom: 1px $BORDER_COLOR solid;
+        border-top: 1px $BORDER_COLOR solid;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+
+        #ratingSummary {
+          .btn {
+            cursor: default;
+          }
+          color: $MAIN_COLOR;
+          margin-bottom: 20px;
+
+          .ratingLabel {
+            color: $MAIN_COLOR;
+            line-height: 12.8px;
+            margin-bottom: 4px;
+            font-weight: 700;
+            font-size: 19.2px;
+          }
+
+          #ratingSummary-sidebar {
+            color: #333;
+            font-size: 10.4px;
+          }
+        }
+
+        #rankedRating {
+          font-size: 12.8px;
+          line-height: 19.2px;
+          color: $GREY_DARKER;
+
+          .rating {
+            font-weight: 700;
+          }
+        }
+      }
+
+      #filter {
+        select {
+          height: 37px;
+        }
+        #show {
+          font-size: 12.8px;
+        }
+        #sortBy {
+          font-size: 12.8px;
+        }
+      }
+      .review-card {
+        .btn {
+          cursor: default;
+        }
+        border-bottom: 1px $BORDER_COLOR solid;
+        // padding-bottom: 50px;
+        .user-detail {
+          color: $USER_DETAIL_COLOR;
+          font-size: $USER_DETAIL_FONT_SIZE;
+          padding-bottom: 15px;
+          .user-avatar {
+            font-size: 40px;
+          }
+          .moreThan1Reviews {
+            color: $MAIN_COLOR;
+          }
+
+          @media only screen and (max-width: 40.063em) {
+            .user-detail_user-info div {
+              display: inline;
+            }
+            .user-detail_user-avatar {
+              padding-left: 0;
+            }
+
+          }
+        }
+
+        .review-detail {
+          font-size: $REVIEW_DETAIL_FONT_SIZE;
+
+          .ratingLabel {
+            color: $MAIN_COLOR;
+            font-weight: 700;
+          }
+
+          .review-text {
+            padding-top: 16px;
+            padding-bottom: 16px;
+          }
+          .review-property-response {
+            position: relative;
+            padding: 20px;
+            background: $REVIEW_DETAIL__PROPERTY-RESPONSE-COLOR;
+            border-radius: .02em;
+
+          }
+          @media only screen and (max-width: 40.063em) {
+            .review-property-response {
+              padding: 10px;
+          }
+          }
+
+          .review-property-response:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 15%;
+            width: 0;
+            height: 0;
+            border: 16px solid transparent;
+            border-bottom-color: $REVIEW_DETAIL__PROPERTY-RESPONSE-COLOR;
+            border-top: 0;
+            margin-left: -12px;
+            margin-top: -12px;
+          }
+
+          .review-propperty-response-label {
+            color: $GREY_777;
+            font-size: 11.2px;
+          }
+
+          .review-detail-date {
+            color: $GREY_777;
+          }
+        }
+      }
+
+      .review-card:last-child {
+        border: none;
+        padding-bottom: 10px;
+      }
+
+      #pagination {
+        .page-item.disabled {
+          .page-link {
+            color: $GREY_DARK;
+          }
+        }
+        .page-item.active {
+          .page-link {
+            background-color: $MAIN_COLOR;
+            color: $WHITE;
+            border-color: $MAIN_COLOR;
+          }
+        }
+        .page-link {
+          // background-color: $MAIN_COLOR;
+          color: $MAIN_COLOR;
+        }
+
+        #pagination-mobile {
+          .btn-pagination {
+            cursor: default;
+            color: $MAIN_COLOR;
+            border-color: $MAIN_COLOR;
+            font-weight: 700;
+          }
+          .page-item {
+            border: none;
+          }
+          .page-link {
+            border: none;
+          }
+        }
+      }
+
+    }
+}

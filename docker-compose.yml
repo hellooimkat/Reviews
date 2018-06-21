@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  db:
+      image: 'cassandra:latest'
+      ports:
+        - 9042:9042
+      volumes:
+        - ./Cassandra/data:/var/lib/cassandra
