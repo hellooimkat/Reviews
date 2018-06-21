@@ -23,7 +23,7 @@ const createUsersCSV = async (number = 50) => {
   const text = await fs.readFile(userIDs, 'utf8');
   const userIdArr = text.split(',');
 
-  for (let i = 0; i <= number; i += 1) {
+  for (let i = 0; i < number; i += 1) {
     const user = [];
     // userId
     user.push(userIdArr[i]);
