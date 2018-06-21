@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const createUsersCSV = (number = 50) => {
   const userIDs = [];
-  for (let i = 0; i <= number; i += 1) {
+  for (let i = 0; i < number; i += 1) {
     // userId
     const id = uuidv4();
     userIDs.push(`${id}`);
