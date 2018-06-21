@@ -1,12 +1,13 @@
+/* eslint-disable no-console */
 const faker = require('faker');
 const fs = require('fs');
-const uuidv4 = require('uuid/v4');
+const util = require('util');
 const countries = require('./countries.js');
 
-const userIDs = [];
+fs.readFile = util.promisify(fs.readFile);
 
-let path = `${__dirname}/CSVs/users.txt`;
-let wstream = fs.createWriteStream(path);
+const path = `${__dirname}/CSVs/users.txt`;
+const wstream = fs.createWriteStream(path);
 wstream.on('finish', () => {
   console.log('File has been written YAY');
 });
@@ -14,14 +15,18 @@ wstream.on('error', (err) => {
   console.log('We errored :(', err);
 });
 
-const createUsersCSV = ((number = 1000000) => {
+
+// CREATE A CSV WITH 50 USERS
+const createUsersCSV = async (number = 50) => {
   let users = [];
-  for (let i = 0; i < number; i += 1) {
+  const userIDs = `${__dirname}/CSVs/userIDs.txt`;
+  const text = await fs.readFile(userIDs, 'utf8');
+  const userIdArr = text.split(',');
+
+  for (let i = 0; i <= number; i += 1) {
     const user = [];
     // userId
-    const id = uuidv4();
-    user.push(id);
-    userIDs.push(id);
+    user.push(userIdArr[i]);
     // userCreatedAt
     const date = new Date(faker.date.between('2000-01-01', '2018-01-01'));
     user.push(date.toISOString());
@@ -51,14 +56,16 @@ const createUsersCSV = ((number = 1000000) => {
   users = users.join('\n');
   wstream.write(users);
   wstream.end();
-})();
+};
+createUsersCSV();
 
 
-path = `${__dirname}/CSVs/userIDs.txt`;
-wstream = fs.createWriteStream(path);
-wstream.write(userIDs.join(','));
-
-
-// CSV TO TABLE     COPY users (userId,userCreatedAt, firstname, lastname, username, age, email, status, country, numOfReviews) FROM '/home/CSVs/users.txt';
+// CSV TO TABLE
+/*
+COPY users (userId,userCreatedAt, firstname,
+lastname, username, age, email,
+status, country, numOfReviews)
+FROM '/home/CSVs/users.txt';
+*/
 
 // DOCKER FOLDER /home/CSVs/userIDs.txt
