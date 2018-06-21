@@ -43,7 +43,7 @@ const createTables = (() => {
 
   client.execute(`CREATE TABLE comments (
     hostelId uuid,
-    user map <text, text>,
+    user uuid,
     rate int,
     ratedFeatures map <text, int>,
     created_at timestamp,
@@ -61,87 +61,6 @@ const createTables = (() => {
     text text,
     PRIMARY KEY (hostelId, created_at) 
   ) WITH CLUSTERING ORDER BY (created_at ASC)`);
-
-  client.execute(`CREATE TABLE comments_by_hostel_all_desc (
-    hostelId int,
-    commentId int,
-    age int,
-    country text,
-    created_at timestamp,
-    language text,
-    numOfReviews int,
-    propertyResponse text,
-    rate int,
-    status text,
-    text text,
-    username,
-    PRIMARY KEY (hostelID, created_at)
-  ) WITH CLUSTERING ORDER BY (created_at DESC)`);
-
-  client.execute(`CREATE TABLE comments_by_hostel_all_asc (
-    hostelId int,
-    commentId int,
-    age int,
-    country text,
-    created_at timestamp,
-    language text,
-    numOfReviews int,
-    propertyResponse text,
-    rate int,
-    status text,
-    text text,
-    username,
-    PRIMARY KEY (hostelId, created_at)
-  ) WITH CLUSTERING ORDER BY (created_at ASC)`);
-
-  client.execute(`CREATE TABLE comments_by_hostel_all_rate_desc (
-    hostelId int,
-    commentId int,
-    age int,
-    country text,
-    created_at timestamp,
-    language text,
-    numOfReviews int,
-    propertyResponse text,
-    rate int,
-    status text,
-    text text,
-    username,
-    PRIMARY KEY (hostelId, rate)
-  ) WITH CLUSTERING ORDER BY (rate DESC)`);
-
-  client.execute(`CREATE TABLE comments_by_hostel_all_rate_asc (
-    hostelId int,
-    commentId int,
-    age int,
-    country text,
-    created_at timestamp,
-    language text,
-    numOfReviews int,
-    propertyResponse text,
-    rate int,
-    status text,
-    text text,
-    username,
-    PRIMARY KEY (hostelId, rate)
-  ) WITH CLUSTERING ORDER BY (rate ASC)`);
-
-  client.execute(`CREATE TABLE comments_by_hostel_all_age_asc (
-    hostelId int,
-    commentId int,
-    age int,
-    country text,
-    created_at timestamp,
-    language text,
-    numOfReviews int,
-    propertyResponse text,
-    rate int,
-    status text,
-    text text,
-    username,
-    PRIMARY KEY (hostelId, age)
-  ) WITH CLUSTERING ORDER BY (age ASC)`);
-  
 })();
 
 //TO GET OVERVIEW DATA:
