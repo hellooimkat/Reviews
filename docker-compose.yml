@@ -1,10 +1,25 @@
 version: '2'
 
 services:
-  db:
-      image: 'cassandra:latest'
-      ports:
-        - 9042:9042
-      volumes:
-        - ./Cassandra/data:/var/lib/cassandra
-        - ./Cassandra/generators/CSVs:/home/CSVs
+  # db:
+  #   image: 'cassandra:latest'
+  #   ports:
+  #     - 9042:9042
+  #   volumes:
+  #     - ./Cassandra/data:/var/lib/cassandra
+  #     - ./Cassandra/generators/CSVs:/home/CSVs
+  # docker exec -it <CONTAINER> csqlsh
+  
+  db2:
+    image: 'postgres:latest'
+    ports:
+      - 5432:5432
+    volumes:
+      - ./Postgress/data:/var/lib/postgresql
+      - ./Postgress/generators/CSVs:/home/CSVs
+    environment:
+      - POSTGRES_USER:postgres
+      - POSTGRES_PASSWORD:password
+      - POSTGRES_DB:reviews
+      # docker exec -it <CONTAINER> psql -U postgres
+
