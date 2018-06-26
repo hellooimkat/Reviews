@@ -2,9 +2,10 @@ SELECT comments.userid, comments.rate, comments.created_at, comments.language, c
 users.age, users.numofreviews, users.status, users.username, users.country
 from comments
 inner join users on comments.userid = users.userid
-where comments.hostelid = NUMBER;
+where comments.hostelid = 800000
+order by comments.created_at desc
 
-select comments.created_at, comments.rate, comments.text, comments.userid,
+select comments.created_at, comments.rate, comments.text, commentsh.userid,
 users.country, users.username, users.age, users.status
 from comments 
 inner join users on comments.userid = users.userid

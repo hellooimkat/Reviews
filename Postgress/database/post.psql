@@ -1,3 +1,11 @@
+docker exec -it  psql -U postgres
+
+DROP database IF EXISTS reviewsHostelWorld;
+
+CREATE database reviewsHostelWorld;
+
+USE reviewsHostelWorld;
+
 CREATE TABLE comments (
   commentid uuid,
   userid uuid, 
