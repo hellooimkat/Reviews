@@ -6,7 +6,7 @@ const uuidv4 = require('uuid/v4');
 
 fs.readFile = util.promisify(fs.readFile);
 
-const path = `${__dirname}/CSVs/comments2.txt`;
+const path = `${__dirname}/CSVs/comments3.txt`;
 
 
 const ratingObjGenerator = () => {
@@ -38,13 +38,13 @@ const findTotalRating = (ratingsObj) => {
 
 
 // CREATE A CSV WITH 2 - 20 comments per hostel
-const createHostelsCSV = async (start = 500001, end = 1000000) => {
+const createHostelsCSV = async (start = 999001, end = 1000000) => {
   const userIDs = `${__dirname}/CSVs/userIDs.txt`;
   const text = await fs.readFile(userIDs, 'utf8');
   const userIdArr = text.split(',');
 
   let comments = [];
-  for (let i = start; i < end; i += 1) {
+  for (let i = start; i <= end; i += 1) {
     // find a different number of comments per listing
     const numberOfComments = Math.floor(Math.random() * 23) + 3;
     for (let j = 0; j <= numberOfComments; j += 1) {
@@ -94,7 +94,10 @@ const createHostelsCSV = async (start = 500001, end = 1000000) => {
 createHostelsCSV();
 
 
-// CSV TO TABLE
+/* CSV TO TABLE
 
-// COPY comments (commentId,hostelId,userId,ratedFeatures,rate,created_at,language,text,propertyResponse) FROM '/home/CSVs/comments.txt' WITH NULL = 'null' AND DELIMITER = '|';
+COPY comments (commentId,hostelId,userId,ratedFeatures,rate,created_at,language,text,propertyResponse) FROM '/home/CSVs/comments3.txt' WITH NULL = 'null' AND DELIMITER = '|';
 
+INSERT INTO comments (commentId,hostelId,userId,ratedFeatures,rate,created_at,language,text,propertyResponse) VALUES (93cb9207-a3d4-4fcf-9ec5-6bd591ff318f, 1000001, 2aa12ecf-cca7-4935-8227-a86441b10b1c, {'Value for money':5,'Atmosphere':9,'Cleanliness':0,'Location':6,'Staff':3,'Security':2,'Facilities':1}, 7, '2010-05-28T06:24:55.617Z', 'ENG', null, null);
+
+*/
