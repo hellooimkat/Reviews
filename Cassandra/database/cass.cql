@@ -1,3 +1,10 @@
+DROP keyspace IF EXISTS reviewsHostelWorld;
+
+CREATE keyspace reviewsHostelWorld WITH replication = {'class' : 'SimpleStrategy',
+'replication_factor': 1};
+
+USE reviewsHostelWorld;
+
 CREATE TABLE users (
   userId uuid,
   userCreatedAt timestamp,
@@ -33,7 +40,7 @@ CREATE TABLE commentsView (
 
   hostelId int,
   name text,
-  
+
   userId uuid,
   usercreatedat timestamp,
   firstname text,
