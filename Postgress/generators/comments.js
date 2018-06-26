@@ -103,6 +103,8 @@ createHostelsCSV();
 /*
 COPY comments (commentId,hostelId,userId,ratedFeatures,rate,created_at,language,text,propertyResponse) FROM '/home/CSVs/comments2.txt' WITH NULL 'null' DELIMITER '|' CSV;
 
+INSERT INTO comments (commentId,hostelId,userId,ratedFeatures,rate,created_at,language,text,propertyResponse) VALUES (e4ab30c7-7ca0-452b-9a7d-57825fcdc25b, 1000001, 2aa12ecf-cca7-4935-8227-a86441b10b1c, {'Value for money':5,'Atmosphere':9,'Cleanliness':0,'Location':6,'Staff':3,'Security':2,'Facilities':1}, 7, 2010-05-28T06:24:55.617Z, 'ENG', null, null);
+
 COPY users (userId,userCreatedAt, firstname,
 lastname, username, age, email,
 status, country, numOfReviews)
