@@ -47,7 +47,7 @@ const createHostelsCSV = async (start = 1, end = 1000000) => {
   let comments = [];
   for (let i = start; i <= end; i += 1) {
     // find a different number of comments per listing
-    const numberOfComments = Math.floor(Math.random() * 23) + 3;
+    const numberOfComments = Math.floor(Math.random() * 13);
     for (let j = 0; j <= numberOfComments; j += 1) {
       let comment = [];
       //commentId
