@@ -6,7 +6,7 @@ const uuidv4 = require('uuid/v4');
 
 fs.readFile = util.promisify(fs.readFile);
 
-const path = `${__dirname}/CSVs/comments2.txt`;
+const path = `${__dirname}/CSVs/commentsview.txt`;
 
 
 const ratingArrGenerator = () => {
@@ -38,7 +38,7 @@ const findTotalRating = (ratingsArr) => {
 
 
 // CREATE A CSV WITH 2 - 20 comments per hostel
-const createHostelsCSV = async (start = 0, end = 1000000) => {
+const createHostelsCSV = async (start = 0, end = 800000) => {
   const userIDs = `${__dirname}/CSVs/userIDs.txt`;
   const text = await fs.readFile(userIDs, 'utf8');
   const userIdArr = text.split(',');
@@ -46,7 +46,7 @@ const createHostelsCSV = async (start = 0, end = 1000000) => {
   let comments = [];
   for (let i = start; i <= end; i += 1) {
     // find a different number of comments per listing
-    const numberOfComments = Math.floor(Math.random() * 13) + 3;
+    const numberOfComments = Math.floor(Math.random() * 23) + 3;
     for (let j = 0; j <= numberOfComments; j += 1) {
       let comment = [];
       //commentId
@@ -101,7 +101,7 @@ createHostelsCSV();
 // CSV TO TABLE
 
 /*
-COPY comments (commentId,hostelId,userId,ratedFeatures,rate,created_at,language,text,propertyResponse) FROM '/home/CSVs/comments2.txt' WITH NULL 'null' DELIMITER '|' CSV;
+COPY comments (commentId,hostelId,userId,ratedFeatures,rate,created_at,language,text,propertyResponse) FROM '/home/CSVs/commentsview.txt' WITH NULL 'null' DELIMITER '|' CSV;
 
 INSERT INTO comments (commentId,hostelId,userId,ratedFeatures,rate,created_at,language,text,propertyResponse) VALUES (e4ab30c7-7ca0-452b-9a7d-57825fcdc25b, 1000001, 2aa12ecf-cca7-4935-8227-a86441b10b1c, {'Value for money':5,'Atmosphere':9,'Cleanliness':0,'Location':6,'Staff':3,'Security':2,'Facilities':1}, 7, 2010-05-28T06:24:55.617Z, 'ENG', null, null);
 
@@ -111,6 +111,7 @@ status, country, numOfReviews)
 FROM '/home/CSVs/users.txt'
 WITH DELIMITER ',' CSV;
 
-ALTER TABLE <table_name> ADD PRIMARY KEY (id);
-ALTER TABLE COMMENTS ADD  FOREIGN KEY(USERID) REFERENCES USERS(USERID)
+ALTER TABLE comments ADD PRIMARY KEY (commentid);
+ALTER TABLE COMMENTS ADD  FOREIGN KEY(USERID) REFERENCES USERS(USERID);
+CREATE INDEX ON comments (hostelid);
 */
