@@ -37,8 +37,8 @@ const findTotalRating = (ratingsArr) => {
 /*eslint-enable*/
 
 
-// CREATE A CSV WITH 2 - 20 comments per hostel
-const createHostelsCSV = async (start = 0, end = 800000) => {
+// CREATE A CSV WITH 2 - 12 comments per hostel
+const createHostelsCSV = async (start = 0, end = 10000000) => {
   const userIDs = `${__dirname}/CSVs/userIDs.txt`;
   const text = await fs.readFile(userIDs, 'utf8');
   const userIdArr = text.split(',');
@@ -46,7 +46,7 @@ const createHostelsCSV = async (start = 0, end = 800000) => {
   let comments = [];
   for (let i = start; i <= end; i += 1) {
     // find a different number of comments per listing
-    const numberOfComments = Math.floor(Math.random() * 23) + 3;
+    const numberOfComments = Math.floor(Math.random() * 15);
     for (let j = 0; j <= numberOfComments; j += 1) {
       let comment = [];
       //commentId
@@ -111,7 +111,5 @@ status, country, numOfReviews)
 FROM '/home/CSVs/users.txt'
 WITH DELIMITER ',' CSV;
 
-ALTER TABLE comments ADD PRIMARY KEY (commentid);
-ALTER TABLE COMMENTS ADD  FOREIGN KEY(USERID) REFERENCES USERS(USERID);
-CREATE INDEX ON comments (hostelid);
+
 */
