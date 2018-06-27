@@ -1,4 +1,4 @@
-docker exec -it  psql -U postgres
+docker exec -it aab34c70494e psql -U postgres
 
 DROP database IF EXISTS reviewsHostelWorld;
 
@@ -6,17 +6,6 @@ CREATE database reviewsHostelWorld;
 
 USE reviewsHostelWorld;
 
-CREATE TABLE comments (
-  commentid uuid,
-  userid uuid, 
-  hostelid int,
-  created_at timestamp,
-  rate smallint,
-  ratedFeatures int ARRAY[7],
-  language varchar(50),
-  text text,
-  propertyresponse text
-);
 
 CREATE TABLE users (
   userid uuid,
@@ -30,6 +19,22 @@ CREATE TABLE users (
   country varchar(50),
   numofreviews smallint
 );
+ALTER TABLE users ADD PRIMARY KEY (userid);
+
+CREATE TABLE comments (
+  commentid uuid,
+  userid uuid, 
+  hostelid int,
+  created_at timestamp,
+  rate smallint,
+  ratedFeatures int ARRAY[7],
+  language varchar(50),
+  text text,
+  propertyresponse text
+);
+ALTER TABLE comments ADD PRIMARY KEY (commentid);
+ALTER TABLE comments ADD  FOREIGN KEY(USERID) REFERENCES users(userid);
+CREATE INDEX ON comments (hostelid);
 
 CREATE TABLE ratedfeatures (
   hostelid smallint,
