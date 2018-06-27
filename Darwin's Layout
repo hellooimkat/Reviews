@@ -10,15 +10,16 @@ SEND BACK:
   reviewSnippet (10, depending on the page): [
     { 
     _id: ,
-    age: ,
     country: ,
     created_at: ,
     language: 'ENG' || 'OTH',
-    numOfReviews: 
     propertyResponse: ,
-    rate (totalRating): ,
-    status: ,
     text: ,
+    rate (totalRating): ,
+    
+    age: ,
+    numOfReviews: 
+    status: ,
     username: , } 
   ]
 }
