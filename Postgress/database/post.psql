@@ -19,30 +19,44 @@ CREATE TABLE users (
   country varchar(50),
   numofreviews smallint
 );
+
+COPY users (userId,userCreatedAt, firstname,
+lastname, username, age, email,
+status, country, numOfReviews)
+FROM '/home/CSVs/users.txt'
+WITH DELIMITER ',' CSV;
+
 ALTER TABLE users ADD PRIMARY KEY (userid);
 
 CREATE TABLE comments (
   commentid uuid,
-  userid uuid, 
   hostelid int,
-  created_at timestamp,
-  rate smallint,
+  userid uuid, 
   ratedFeatures int ARRAY[7],
+  rate smallint,
+  created_at timestamp,
   language varchar(50),
   text text,
   propertyresponse text
 );
+
+COPY comments (commentId,hostelId,userId,ratedFeatures,rate,created_at,language,text,propertyResponse) FROM '/home/CSVs/commentsview.txt' WITH NULL 'null' DELIMITER '|' CSV;
+
 ALTER TABLE comments ADD PRIMARY KEY (commentid);
 ALTER TABLE comments ADD  FOREIGN KEY(USERID) REFERENCES users(userid);
 CREATE INDEX ON comments (hostelid);
 
-CREATE TABLE ratedfeatures (
-  hostelid smallint,
-  valueForMoney smallint,
-  security smallint,
-  location smallint,
-  staff smallint,
-  atmosphere smallint,
-  cleanliness smallint,
-  facilities smallint
+CREATE TABLE hostels (
+  hostelid int,
+  name text,
+  avgRating smallint,
+  ratedFeatures int ARRAY[7],
+  totalReviewCount smallint,
+  totalEngReviews smallint,
+  totalOthReviews smallint
 );
+
+COPY hostels (hostelid, name, avgRating, ratedFeatures, totalReviewCount, totalEngReviews, totalOthReviews) FROM '/home/CSVs/hostels.txt' WITH DELIMITER '|' CSV;
+
+ALTER TABLE hostels ADD PRIMARY KEY (hostelid);
+ALTER TABLE comments ADD FOREIGN KEY(hostelid) REFERENCES hostels(hostelid);

@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = `${__dirname}/CSVs/hostels.txt`;
 
 const cn = {
-    host: 'localhost', // server name or IP address;
+    host: 'localhost',
     port: 5432,
     database: 'postgres',
     user: 'postgres',
