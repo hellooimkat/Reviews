@@ -14,14 +14,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let id = window.location.pathname;
-    if (id === '/hostels/' || id === '/') {
-      id = 1;
+    let hostelId = window.location.pathname;
+    if (hostelId === '/hostels/' || hostelId === '/') {
+      hostelId = 1;
     } else {
-      id = id.replace(/\/hostels/g, '');
-      id = id.replace(/\//g, '');
+      hostelId = hostelId.replace(/\/hostels/g, '');
+      hostelId = hostelId.replace(/\//g, '');
     }
-    this.props.fetchOverviewReviews(id);
+    this.props.fetchOverviewReviews(Number(hostelId));
   }
 
   render() {

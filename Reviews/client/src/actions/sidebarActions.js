@@ -14,10 +14,7 @@ export const fetchReviewsOnPage = (
   isEnglish
 ) => dispatch => {
   const url = `/api/reviews/${hostelId}/all?pageNum=${pageNumber}&eng=${isEnglish}&sortBy=${sortBy}`;
-  // console.log(url);
   axios.get(url).then(res => {
-    console.log('res.data', res.data);
-
     dispatch({
       type: FETCH_REVIEWS_ON_PAGE,
       payload: { ...res.data, pageNum: pageNumber }

@@ -16,7 +16,7 @@ export const fetchOverviewReviews = hostelId => (dispatch) => {
 
     dispatch({
       type: FETCH_OVERVIEW_REVIEWS,
-      payload: data,
+      payload: {hostelId, ...data},
     });
     dispatch({
       type: GET_RANKED_FEATURES,
