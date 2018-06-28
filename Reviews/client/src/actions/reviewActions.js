@@ -11,7 +11,7 @@ export const fetchOverviewReviews = hostelId => (dispatch) => {
     const compare = (f1, f2) => f2.rating - f1.rating;
     ratedFeatures = ratedFeatures
       .sort(compare)
-      .filter(each => each.rating > 8)
+      // .filter(each => each.rating > 8)
       .slice(0, 6);
 
     dispatch({
