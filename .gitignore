@@ -1,4 +1,5 @@
 *node_modules*
 Cassandra/data/
+Postgress/data/
 Cassandra/generators/CSVs/
 Postgress/generators/CSVs/

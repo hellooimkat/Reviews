@@ -10,12 +10,12 @@ services:
   #     - ./Cassandra/generators/CSVs:/home/CSVs
   # docker exec -it <CONTAINER> csqlsh
   
-  db2:
+  db:
     image: 'postgres:latest'
     ports:
       - 5432:5432
     volumes:
-      - ./Postgress/data:/var/lib/postgresql
+      - ./Postgress/data:/var/lib/postgresql/data
       - ./Postgress/generators/CSVs:/home/CSVs
     environment:
       - POSTGRES_USER:postgres

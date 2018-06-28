@@ -17,7 +17,7 @@ const db = pgp(cn);
 // select and return user name from id:
 async function createHostelCSV() {
   let hostels = [];
-  for (let i = 0; i <= 10000000; i++) {
+  for (let i = 0; i <= 2; i++) {
     let hostel = [];
     //hostelid
     hostel.push(i);
@@ -50,21 +50,24 @@ async function createHostelCSV() {
     });
     avgRating = Math.ceil(avgRating/7);
 
-    hostel.push(avgRating, JSON.stringify('{' + featuresArr.join() +'}'), totalReviewCount.count, engReviewCount.count, othReviewCount.count);
+    hostel.push(avgRating, '{' + featuresArr.join() +'}', Number(totalReviewCount.count), Number(engReviewCount.count), Number(othReviewCount.count));
+    
+    db.one('INSERT INTO hostels (hostelid, name, avgrating, ratedfeatures, totalreviewcount, totalengreviews, totalothreviews) VALUES($1, $2, $3, $4, $5, $6, $7)', hostel)
+    .catch( () => console.log(i));
 
-    hostel = hostel.join('|');
-    hostels.push([hostel]);
-
-    if (i % 1000 === 0) {
-      if (i === 0) {
-        hostels = hostels.join('\n');
-      } else {
-        hostels = '\n' + hostels.join('\n');
-      }
-      fs.appendFileSync(path, hostels);
-      hostels = [];
-      console.log(i)
-    }
+    // hostel = hostel.join('|');
+    // hostels.push([hostel]);
+    
+    // if (i % 1000 === 0) {
+    //   if (i === 0) {
+    //     hostels = hostels.join('\n');
+    //   } else {
+    //     hostels = '\n' + hostels.join('\n');
+    //   }
+    //   fs.appendFileSync(path, hostels);
+    //   hostels = [];
+    //   console.log(i)
+    // }
   }
 }
 

@@ -6,7 +6,6 @@ CREATE database reviewsHostelWorld;
 
 USE reviewsHostelWorld;
 
-
 CREATE TABLE users (
   userid uuid,
   userCreatedAt timestamp,
@@ -26,8 +25,6 @@ status, country, numOfReviews)
 FROM '/home/CSVs/users.txt'
 WITH DELIMITER ',' CSV;
 
-ALTER TABLE users ADD PRIMARY KEY (userid);
-
 CREATE TABLE comments (
   commentid uuid,
   hostelid int,
@@ -42,10 +39,6 @@ CREATE TABLE comments (
 
 COPY comments (commentId,hostelId,userId,ratedFeatures,rate,created_at,language,text,propertyResponse) FROM '/home/CSVs/commentsview.txt' WITH NULL 'null' DELIMITER '|' CSV;
 
-ALTER TABLE comments ADD PRIMARY KEY (commentid);
-ALTER TABLE comments ADD  FOREIGN KEY(USERID) REFERENCES users(userid);
-CREATE INDEX ON comments (hostelid);
-
 CREATE TABLE hostels (
   hostelid int,
   name text,
@@ -57,6 +50,12 @@ CREATE TABLE hostels (
 );
 
 COPY hostels (hostelid, name, avgRating, ratedFeatures, totalReviewCount, totalEngReviews, totalOthReviews) FROM '/home/CSVs/hostels.txt' WITH DELIMITER '|' CSV;
+
+ALTER TABLE users ADD PRIMARY KEY (userid);
+
+ALTER TABLE comments ADD PRIMARY KEY (commentid);
+ALTER TABLE comments ADD  FOREIGN KEY(USERID) REFERENCES users(userid);
+CREATE INDEX ON comments (hostelid);
 
 ALTER TABLE hostels ADD PRIMARY KEY (hostelid);
 ALTER TABLE comments ADD FOREIGN KEY(hostelid) REFERENCES hostels(hostelid);
