@@ -1,11 +1,5 @@
 docker exec -it aab34c70494e psql -U postgres
 
-DROP database IF EXISTS reviewsHostelWorld;
-
-CREATE database reviewsHostelWorld;
-
-USE reviewsHostelWorld;
-
 CREATE TABLE users (
   userid uuid,
   userCreatedAt timestamp,
@@ -25,6 +19,7 @@ status, country, numOfReviews)
 FROM '/home/CSVs/users.txt'
 WITH DELIMITER ',' CSV;
 
+80024999
 CREATE TABLE comments (
   commentid uuid,
   hostelid int,
