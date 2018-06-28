@@ -23,7 +23,7 @@ const cn = {
 const db = pgp(cn); 
 
 app.use(express.static(path.join(__dirname, '../../Reviews/public/')));
-app.use('hostels/:id', express.static(path.join(__dirname, '../../Reviews/public/')));
+app.use('/hostels/:id', express.static(path.join(__dirname, '../../Reviews/public/')));
 
 app.get('/api/reviews/overview/:id', async (req, res) => {
   const { id } = req.params;
