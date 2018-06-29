@@ -54,6 +54,7 @@ ALTER TABLE comments ADD  FOREIGN KEY(USERID) REFERENCES users(userid);
 CREATE INDEX ON comments (hostelid);
 
 CREATE INDEX ON comments (language, created_at);
+CREATE INDEX ON comments (propertyresponse);
 
 ALTER TABLE hostels ADD PRIMARY KEY (hostelid);
 ALTER TABLE comments ADD FOREIGN KEY(hostelid) REFERENCES hostels(hostelid);

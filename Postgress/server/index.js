@@ -1,3 +1,4 @@
+require('newrelic')
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -17,5 +18,5 @@ app.use(express.static(path.join(__dirname, '../../Reviews/public/')));
 app.use('/hostels/:id', express.static(path.join(__dirname, '../../Reviews/public/')));
 app.use('/api/get/reviews/overview', overview);
 app.use('/api/get/reviews/all', sidebar);
-app.use('/api/post', post);
+app.use('/api/post/comments', post);
 
