@@ -1,4 +1,4 @@
-const { Pool, Client } = require('pg');
+const { Pool } = require('pg');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -24,7 +24,7 @@ const db = new Pool(cn);
 app.use(express.static(path.join(__dirname, '../../Reviews/public/')));
 app.use('/hostels/:id', express.static(path.join(__dirname, '../../Reviews/public/')));
 
-app.get('/api/reviews/overview/:id', (req, res) => {
+app.get('/api/get/reviews/overview/:id', (req, res) => {
   const { id } = req.params;
 
   const qHostelOverview = `SELECT 
@@ -84,7 +84,7 @@ app.get('/api/reviews/overview/:id', (req, res) => {
 });
 
 
-app.get('/api/reviews/:id/all', (req, res) => {
+app.get('/api/get/reviews/:id/all', (req, res) => {
   const { id } = req.params;
   const { pageNum } = req.query;
   const { eng } = req.query;
@@ -133,8 +133,6 @@ app.get('/api/reviews/:id/all', (req, res) => {
       
 
       for(let i = 0; i < result[1].rows.length; i++) {
-        console.log(result[1].rows[i]['age'], result[1].rows[i]['created_at'], result[1].rows[i]['rate'], result[1].rows[i]['language'])
-
         toReturn['reviewSnippet'].push({
           country: result[1].rows[i]['country'],
           created_at: result[1].rows[i]['created_at'],
@@ -152,19 +150,6 @@ app.get('/api/reviews/:id/all', (req, res) => {
     .catch( err => console.log(err));
 });
 
-// SELECT c.created_at, c.language, c.rate, u.age FROM comments AS c INNER JOIN users AS u ON c.userid = u.userid WHERE  c.hostelid = 60000 AND c.language = 'ENG' ORDER BY c.rate DESC LIMIT 10;
+app.post('/api/reviews/:id/all', (req, res) => {
 
-
-
-
-/*
-SELECT
-comments.created_at, comments.language, comments.rate,
-users.age
-FROM comments
-INNER JOIN users ON comments.userid = users.userid
-WHERE (comments.language = 'ENG' OR comments.language = 'null')
-AND comments.hostelid = 50000
-ORDER BY comments.created_at asc
-OFFSET 0
-*/
+});
