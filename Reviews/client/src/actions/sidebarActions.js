@@ -15,6 +15,7 @@ export const fetchReviewsOnPage = (
 ) => dispatch => {
   const url = `/api/reviews/${hostelId}/all?pageNum=${pageNumber}&eng=${isEnglish}&sortBy=${sortBy}`;
   axios.get(url).then(res => {
+    console.log('sidebarData:', res)
     dispatch({
       type: FETCH_REVIEWS_ON_PAGE,
       payload: { ...res.data, pageNum: pageNumber }
