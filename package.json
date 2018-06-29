@@ -2,9 +2,9 @@
   "name": "backendcapstone",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./Postgress/server/index.js",
   "scripts": {
-    "start": "nodemon ./Postgress/database/post.js"
+    "start": "nodemon ./Postgress/server/"
   },
   "repository": {
     "type": "git",
