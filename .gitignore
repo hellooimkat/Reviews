@@ -1,8 +1,11 @@
 *node_modules*
-Cassandra/
+Cassandra/data/
 Postgress/data/
+Cassandra/generators/CSVs/
 Postgress/generators/CSVs/
 
 newrelic
 newrelic.js
 newrelic_agent.log
+process.yml
+hello.yml
