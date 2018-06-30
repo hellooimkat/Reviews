@@ -46,9 +46,8 @@ router.get('/:id', (req, res) => {
   if (pageNum !== '1') {
     qReviews = qReviews + ` OFFSET ${(Number(pageNum) * 10) - 10}`;
   }
-
   qReviews = qReviews + ' LIMIT 10;';
-  
+
   const totalReviewsInCat = db.query(qTotal);
   const reviewsSnippets = db.query(qReviews);
 
@@ -58,19 +57,19 @@ router.get('/:id', (req, res) => {
       toReturn['total'] = result[0].rows[0][`${languagePlug}`];
       toReturn['reviewSnippet'] = [];
       
-
-      for(let i = 0; i < result[1].rows.length; i++) {
+      const reviewResults = result[1].rows;
+      for(let i = 0; i < reviewResults.length; i++) {
         toReturn['reviewSnippet'].push({
-          country: result[1].rows[i]['country'],
-          created_at: result[1].rows[i]['created_at'],
-          language: result[1].rows[i]['language'],
-          propertyResponse: result[1].rows[i]['propertyresponse'],
-          text: result[1].rows[i]['text'],
-          rate: result[1].rows[i]['rate'],
-          age: result[1].rows[i]['age'],
-          numOfReviews: result[1].rows[i]['numofreviews'],
-          status: result[1].rows[i]['status'],
-          username: result[1].rows[i]['username'],
+          country: reviewResults[i]['country'],
+          created_at: reviewResults[i]['created_at'],
+          language: reviewResults[i]['language'],
+          propertyResponse: reviewResults[i]['propertyresponse'],
+          text: reviewResults[i]['text'],
+          rate: reviewResults[i]['rate'],
+          age: reviewResults[i]['age'],
+          numOfReviews: reviewResults[i]['numofreviews'],
+          status: reviewResults[i]['status'],
+          username: reviewResults[i]['username'],
       })};
       res.status(200).send(toReturn);
     })
@@ -78,3 +77,15 @@ router.get('/:id', (req, res) => {
 });
 
 module.exports = router;
+
+/*
+-------------------TOTAL OVERVIEW
+SELECT totalengreviews FROM hostels WHERE hostelid = 1;
+-------------------REVIEWS OVERVIEW
+SELECT c.created_at, c.language, c.propertyresponse, c.text, c.rate, c.commentid, 
+u.age, u.numofreviews, u.status, u.username, u.country 
+FROM comments AS c 
+INNER JOIN users AS u ON c.userid = u.userid 
+WHERE  c.hostelid = 1 AND c.language = 'ENG' 
+ORDER BY c.created_at DESC LIMIT 10;
+*/

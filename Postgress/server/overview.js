@@ -38,36 +38,38 @@ router.get('/:id', (req, res) => {
   let toReturn = {};
   Promise.all([hostelOverview, commentsOverview, countries])
     .then( result => {
-      toReturn['avgRating'] = result[0].rows[0]['avgrating'];
-      toReturn['totalReviewCount'] = result[0].rows[0]['totalreviewcount'];
+      const hostelResults = result[0].rows[0];
+      toReturn['avgRating'] = hostelResults['avgrating'];
+      toReturn['totalReviewCount'] = hostelResults['totalreviewcount'];
       toReturn['ratedFeatures'] = [
         {feature: 'Value For Money', 
-        rating: result[0].rows[0]['ratedfeatures'][0]},
+        rating: hostelResults['ratedfeatures'][0]},
         {feature: 'Security', 
-        rating: result[0].rows[0]['ratedfeatures'][1]},
+        rating: hostelResults['ratedfeatures'][1]},
         {feature: 'Location', 
-        rating: result[0].rows[0]['ratedfeatures'][2]},
+        rating: hostelResults['ratedfeatures'][2]},
         {feature: 'Staff', 
-        rating: result[0].rows[0]['ratedfeatures'][3]},
+        rating: hostelResults['ratedfeatures'][3]},
         {feature: 'Atmosphere', 
-        rating: result[0].rows[0]['ratedfeatures'][4]},
+        rating: hostelResults['ratedfeatures'][4]},
         {feature: 'Cleanliness', 
-        rating: result[0].rows[0]['ratedfeatures'][5]},
+        rating: hostelResults['ratedfeatures'][5]},
         {feature: 'Facilities', 
-        rating: result[0].rows[0]['ratedfeatures'][6]},
+        rating: hostelResults['ratedfeatures'][6]},
       ];
 
       toReturn['reviews'] = [];
-      for (let i = 0; i < result[1].rows.length; i++) {
+      const reviewResults = result[1].rows;
+      for (let i = 0; i < reviewResults.length; i++) {
         toReturn['reviews'].push({
-            created_at: result[1].rows[i]['created_at'],
-            rate: result[1].rows[i]['rate'],
-            text: result[1].rows[i]['text'],
+            created_at: reviewResults[i]['created_at'],
+            rate: reviewResults[i]['rate'],
+            text: reviewResults[i]['text'],
             user: {
-              username: result[1].rows[i]['username'],
-              age: result[1].rows[i]['age'],
-              status: result[1].rows[i]['status'],
-              country: result[1].rows[i]['country'],
+              username: reviewResults[i]['username'],
+              age: reviewResults[i]['age'],
+              status: reviewResults[i]['status'],
+              country: reviewResults[i]['country'],
         }});
       }
 
@@ -86,3 +88,34 @@ router.get('/:id', (req, res) => {
 });
 
 module.exports = router;
+
+
+/*
+------------------HOSTELS OVERVIEW:
+SELECT
+totalReviewCount, avgRating, ratedFeatures
+FROM hostels WHERE hostelid = 1;
+
+Optimizations:
+- index on (totalReviewCount, avgRating, ratedFeatures)
+------------------COMMENTS OVERVIEW:
+SELECT
+c.created_at, c.rate, c.text,
+u.country, u.username, u.age, u.status
+FROM comments AS c
+INNER JOIN users AS u ON c.userid = u.userid
+WHERE c.hostelid = 1
+ORDER BY c.created_at DESC
+LIMIT 4;
+
+Optimizations:
+- 
+------------------COUNTRIES OVERVIEW:
+SELECT u.country FROM comments AS c
+INNER JOIN users AS u ON c.userid = u.userid
+WHERE hostelid = 1;
+
+Optimizations:
+- index on comments (hostelid)
+- primary key users userid
+*/

@@ -45,6 +45,7 @@ CREATE TABLE hostels (
 );
 
 COPY hostels (hostelid, name, avgRating, ratedFeatures, totalReviewCount, totalEngReviews, totalOthReviews) FROM '/home/CSVs/hostels.txt' WITH DELIMITER '|' CSV;
+CREATE INDEX ON hostels (totalReviewCount, avgRating, ratedFeatures);
 
 ALTER TABLE users ADD PRIMARY KEY (userid);
 CREATE INDEX ON users (country);
