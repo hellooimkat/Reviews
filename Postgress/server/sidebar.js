@@ -1,4 +1,4 @@
-const { Pool } = require('pg');
+const { Client } = require('pg');
 const express = require('express');
 const router = express.Router();
 
@@ -9,7 +9,9 @@ const cn = {
   user: 'postgres',
   password: 'password'
 };
-const db = new Pool(cn); 
+const db = new Client(cn); 
+
+db.connect();
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
