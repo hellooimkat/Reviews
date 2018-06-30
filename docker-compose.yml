@@ -21,5 +21,4 @@ services:
       - POSTGRES_USER:postgres
       - POSTGRES_PASSWORD:password
       - POSTGRES_DB:reviews
-      # docker exec -it <CONTAINER> psql -U postgres
-
+      # docker exec -it backendcapstone_db_1 psql -U postgres

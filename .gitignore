@@ -1,7 +1,6 @@
 *node_modules*
-Cassandra/data/
+Cassandra/
 Postgress/data/
-Cassandra/generators/CSVs/
 Postgress/generators/CSVs/
 
 newrelic
