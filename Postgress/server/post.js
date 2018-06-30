@@ -11,7 +11,7 @@ const cn = {
 };
 const db = new Pool(cn); 
 
-// ------------------ post request
+// ------------------ post request TO DO
 router.post('/user/:hostelid', (req, res) => {
   const { hostelid } = req.params;
 

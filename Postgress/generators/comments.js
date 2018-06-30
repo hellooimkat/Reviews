@@ -90,7 +90,6 @@ const createHostelsCSV = async (start = 0, end = 10000000) => {
       }
       fs.appendFileSync(path, comments);
       comments = [];
-      console.log(i)
     }
   }
 };

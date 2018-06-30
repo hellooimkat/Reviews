@@ -58,7 +58,7 @@ router.get('/:id', (req, res) => {
       ];
 
       toReturn['reviews'] = [];
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < result[1].rows.length; i++) {
         toReturn['reviews'].push({
             created_at: result[1].rows[i]['created_at'],
             rate: result[1].rows[i]['rate'],
@@ -81,7 +81,8 @@ router.get('/:id', (req, res) => {
         }
       }
       res.status(200).send(toReturn);
-    });
+    })
+    .catch( err => console.log(err));
 });
 
 module.exports = router;
