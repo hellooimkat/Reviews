@@ -18,19 +18,33 @@ router.get('/:id', (req, res) => {
   .then( result => {
     let toReturn = {};
     toReturn['countryCount'] = {};
+    toReturn['reviews'] = [];
+
     let comments = result.rows;
     let featuresArr = [0,0,0,0,0,0,0];
 
-    comments.forEach( (comment, commentindex) => {
-      if (!toReturn['countryCount'][comments[commentindex].country]) {
-        toReturn['countryCount'][comments[commentindex].country] = 1;
+    comments.forEach( (comment, cIndex) => {
+      if (!toReturn['countryCount'][comments[cIndex].country]) {
+        toReturn['countryCount'][comments[cIndex].country] = 1;
       } else {
-        toReturn['countryCount'][comments[commentindex].country]++;
+        toReturn['countryCount'][comments[cIndex].country]++;
       }
 
+      if (cIndex < 4) {
+        toReturn['reviews'].push({
+          created_at: comments[cIndex]['created_at'],
+          rate: comments[cIndex]['rate'],
+          text: comments[cIndex]['text'],
+          user: {
+            username: comments[cIndex]['username'],
+            age: comments[cIndex]['age'],
+            status: comments[cIndex]['status'],
+            country: comments[cIndex]['country'],
+        }});
+      }
       comment.ratedfeatures.forEach( (number, index) => {
         featuresArr[index] = featuresArr[index] + number;
-        if (commentindex === comments.length - 1) {
+        if (cIndex === comments.length - 1) {
           featuresArr[index] = Math.ceil(featuresArr[index] / comments.length);
         }
       });
@@ -58,23 +72,6 @@ router.get('/:id', (req, res) => {
       {feature: 'Facilities', 
       rating: featuresArr[6]},
     ];
-
-    toReturn['reviews'] = [];
-    const reviewResults = result.rows;
-    for (let i = 0; i < 4; i++) {
-      if (reviewResults[i]) {
-        toReturn['reviews'].push({
-            created_at: reviewResults[i]['created_at'],
-            rate: reviewResults[i]['rate'],
-            text: reviewResults[i]['text'],
-            user: {
-              username: reviewResults[i]['username'],
-              age: reviewResults[i]['age'],
-              status: reviewResults[i]['status'],
-              country: reviewResults[i]['country'],
-        }});
-      }
-    }
     res.status(200).send(toReturn);
   })
   .catch( err => console.log(err));
