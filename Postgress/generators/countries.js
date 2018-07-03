@@ -8,7 +8,6 @@ const countries = [
   'Nigeria',
   'Philippines',
   'Samoa',
-  'South Korea',
   'United States of America',
   'Zimbabwe',
 ];

@@ -6,7 +6,7 @@ const uuidv4 = require('uuid/v4');
 
 fs.readFile = util.promisify(fs.readFile);
 
-const path = `${__dirname}/CSVs/commentsview.txt`;
+const path = `${__dirname}/CSVs/comments.txt`;
 
 
 const ratingArrGenerator = () => {
@@ -38,7 +38,7 @@ const findTotalRating = (ratingsArr) => {
 
 
 // CREATE A CSV WITH 2 - 12 comments per hostel
-const createHostelsCSV = async (start = 0, end = 10000000) => {
+const createHostelsCSV = async (start = 1, end = 10000000) => {
   const userIDs = `${__dirname}/CSVs/userIDs.txt`;
   const text = await fs.readFile(userIDs, 'utf8');
   const userIdArr = text.split(',');
@@ -46,7 +46,7 @@ const createHostelsCSV = async (start = 0, end = 10000000) => {
   let comments = [];
   for (let i = start; i <= end; i += 1) {
     // find a different number of comments per listing
-    const numberOfComments = Math.floor(Math.random() * 15);
+    const numberOfComments = Math.floor(Math.random() * 2) + 4;
     for (let j = 0; j <= numberOfComments; j += 1) {
       let comment = [];
       //commentId
@@ -74,7 +74,7 @@ const createHostelsCSV = async (start = 0, end = 10000000) => {
       ]);
       comment.push(language);
       // text 
-      comment.push(faker.lorem.paragraph());
+      comment.push(faker.lorem.sentences(faker.random.number({ min: 1, max: 2 })));
       // propertyResponse 
       Math.random() < 0.4 ? comment.push('null')
         : comment.push(faker.lorem.sentences(faker.random.number({ min: 1, max: 2 })));
@@ -82,14 +82,15 @@ const createHostelsCSV = async (start = 0, end = 10000000) => {
       comment = comment.join('|');
       comments.push([comment]);
     }
-    if (i % 1000 === 0) {
-      if (i === 0) {
+    if (i % 10000 === 0) {
+      if (i === 1) {
         comments = comments.join('\n');
       } else {
         comments = '\n' + comments.join('\n');
       }
       fs.appendFileSync(path, comments);
       comments = [];
+      console.log(i);
     }
   }
 };

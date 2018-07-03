@@ -2,17 +2,6 @@ const { Client } = require('pg');
 const express = require('express');
 const router = express.Router();
 
-const cn = {
-  host: 'localhost',
-  port: 5432,
-  database: 'postgres',
-  user: 'postgres',
-  password: 'password'
-};
-const db = new Client(cn); 
-
-db.connect()
-
 // ------------------ post request TO DO
 router.post('/user/:hostelid', (req, res) => {
   const { hostelid } = req.params;

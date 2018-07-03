@@ -1,5 +1,3 @@
-docker exec -it aab34c70494e psql -U postgres
-
 CREATE TABLE users (
   userid uuid,
   userCreatedAt timestamp,
@@ -13,13 +11,12 @@ CREATE TABLE users (
   numofreviews smallint
 );
 
-COPY users (userId,userCreatedAt, firstname,
+\COPY users (userId,userCreatedAt, firstname,
 lastname, username, age, email,
 status, country, numOfReviews)
-FROM '/home/CSVs/users.txt'
+FROM './users.txt'
 WITH DELIMITER ',' CSV;
 
-80024999
 CREATE TABLE comments (
   commentid uuid,
   hostelid int,
@@ -32,7 +29,7 @@ CREATE TABLE comments (
   propertyresponse text
 );
 
-COPY comments (commentId,hostelId,userId,ratedFeatures,rate,created_at,language,text,propertyResponse) FROM '/home/CSVs/commentsview.txt' WITH NULL 'null' DELIMITER '|' CSV;
+\COPY comments (commentId,hostelId,userId,ratedFeatures,rate,created_at,language,text,propertyResponse) FROM './comments.txt' WITH NULL 'null' DELIMITER '|' CSV;
 
 CREATE TABLE hostels (
   hostelid int,
@@ -41,10 +38,11 @@ CREATE TABLE hostels (
   ratedFeatures int ARRAY[7],
   totalReviewCount smallint,
   totalEngReviews smallint,
-  totalOthReviews smallint
+  totalOthReviews smallint 
 );
 
-COPY hostels (hostelid, name, avgRating, ratedFeatures, totalReviewCount, totalEngReviews, totalOthReviews) FROM '/home/CSVs/hostels.txt' WITH DELIMITER '|' CSV;
+\COPY hostels (hostelid, name, avgRating, ratedFeatures, totalReviewCount, totalEngReviews, totalOthReviews) FROM './hostels.txt' WITH DELIMITER ',' CSV;
+
 CREATE INDEX ON hostels (totalReviewCount, avgRating, ratedFeatures);
 
 ALTER TABLE users ADD PRIMARY KEY (userid);

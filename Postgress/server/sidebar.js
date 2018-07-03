@@ -1,17 +1,7 @@
-const { Client } = require('pg');
 const express = require('express');
 const router = express.Router();
+const db = require('./database');
 
-const cn = {
-  host: 'localhost',
-  port: 5432,
-  database: 'postgres',
-  user: 'postgres',
-  password: 'password'
-};
-const db = new Client(cn); 
-
-db.connect();
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
@@ -50,32 +40,39 @@ router.get('/:id', (req, res) => {
   }
   qReviews = qReviews + ' LIMIT 10;';
 
-  const totalReviewsInCat = db.query(qTotal);
-  const reviewsSnippets = db.query(qReviews);
+  db.connect((err, db, release) => {
+    if (err) {
+      return console.log('Error acquiring client', err.stack);
+    }
 
-  let toReturn = {};
-  Promise.all([totalReviewsInCat, reviewsSnippets])
-    .then( result => {
-      toReturn['total'] = result[0].rows[0][`${languagePlug}`];
-      toReturn['reviewSnippet'] = [];
-      
-      const reviewResults = result[1].rows;
-      for(let i = 0; i < reviewResults.length; i++) {
-        toReturn['reviewSnippet'].push({
-          country: reviewResults[i]['country'],
-          created_at: reviewResults[i]['created_at'],
-          language: reviewResults[i]['language'],
-          propertyResponse: reviewResults[i]['propertyresponse'],
-          text: reviewResults[i]['text'],
-          rate: reviewResults[i]['rate'],
-          age: reviewResults[i]['age'],
-          numOfReviews: reviewResults[i]['numofreviews'],
-          status: reviewResults[i]['status'],
-          username: reviewResults[i]['username'],
-      })};
-      res.status(200).send(toReturn);
-    })
-    .catch( err => console.log(err));
+    const totalReviewsInCat = db.query(qTotal);
+    const reviewsSnippets = db.query(qReviews);
+
+    let toReturn = {};
+    Promise.all([totalReviewsInCat, reviewsSnippets])
+      .then( result => {
+        release();
+        toReturn['total'] = result[0].rows[0][`${languagePlug}`];
+        toReturn['reviewSnippet'] = [];
+        
+        const reviewResults = result[1].rows;
+        for(let i = 0; i < reviewResults.length; i++) {
+          toReturn['reviewSnippet'].push({
+            country: reviewResults[i]['country'],
+            created_at: reviewResults[i]['created_at'],
+            language: reviewResults[i]['language'],
+            propertyResponse: reviewResults[i]['propertyresponse'],
+            text: reviewResults[i]['text'],
+            rate: reviewResults[i]['rate'],
+            age: reviewResults[i]['age'],
+            numOfReviews: reviewResults[i]['numofreviews'],
+            status: reviewResults[i]['status'],
+            username: reviewResults[i]['username'],
+        })};
+        res.status(200).send(toReturn);
+      })
+      .catch( err => console.log(err));
+    });
 });
 
 module.exports = router;

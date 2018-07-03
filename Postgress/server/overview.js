@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('./database');
+const redis = require('./index');
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
@@ -21,14 +22,14 @@ router.get('/:id', (req, res) => {
     if (err) {
       return console.log('Error acquiring client', err.stack);
     }
-    
+
     const hostelOverview = db.query(qHostelOverview);
     const commentsOverview = db.query(qCommentsOverview);
   
-    const start = Date.now();
+    // const start = Date.now();
     Promise.all([hostelOverview, commentsOverview])
     .then( result => {
-      console.log('PROMISES RESOLVED', Date.now() - start);
+      // console.log('PROMISES RESOLVED', Date.now() - start);
       release(); //releasing the client because it's finished with what it's had to do with the db
       let toReturn = {};
       const hostelResults = result[0].rows[0];
@@ -53,7 +54,7 @@ router.get('/:id', (req, res) => {
 
       toReturn['reviews'] = [];
       const reviewResults = result[1].rows;
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 4; i++) {
         if (reviewResults[i]) {
           toReturn['reviews'].push({
               created_at: reviewResults[i]['created_at'],
