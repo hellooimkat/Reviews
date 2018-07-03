@@ -38,7 +38,7 @@ const findTotalRating = (ratingsArr) => {
 
 
 // CREATE A CSV WITH 2 - 12 comments per hostel
-const createHostelsCSV = async (start = 1, end = 10000000) => {
+const createHostelsCSV = async (start = 100000, end = 10000000) => {
   const userIDs = `${__dirname}/CSVs/userIDs.txt`;
   const text = await fs.readFile(userIDs, 'utf8');
   const userIdArr = text.split(',');
@@ -83,7 +83,7 @@ const createHostelsCSV = async (start = 1, end = 10000000) => {
       comments.push([comment]);
     }
     if (i % 10000 === 0) {
-      if (i === 1) {
+      if (i === 100000) {
         comments = comments.join('\n');
       } else {
         comments = '\n' + comments.join('\n');

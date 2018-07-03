@@ -7,8 +7,8 @@ router.get('/:id', (req, res) => {
   const { id } = req.params;
   
   const qHostelOverview = `SELECT 
-  totalReviewCount, avgRating, ratedFeatures 
-  FROM hostels WHERE hostelid = ${id};`;
+  ratedFeatures 
+  FROM comments WHERE hostelid = ${id};`;
   
   const qCommentsOverview = `SELECT
   c.created_at, c.rate, c.text,
@@ -26,30 +26,42 @@ router.get('/:id', (req, res) => {
     const hostelOverview = db.query(qHostelOverview);
     const commentsOverview = db.query(qCommentsOverview);
   
-    // const start = Date.now();
     Promise.all([hostelOverview, commentsOverview])
     .then( result => {
-      // console.log('PROMISES RESOLVED', Date.now() - start);
       release(); //releasing the client because it's finished with what it's had to do with the db
+      let features = result[0].rows;
+      let featuresArr = [0,0,0,0,0,0,0];
+      features.forEach( (rating, ratingindex) => {
+        rating.ratedfeatures.forEach( (number, index) => {
+          featuresArr[index] = featuresArr[index] + number;
+          if (ratingindex === features.length - 1) {
+            featuresArr[index] = Math.ceil(featuresArr[index] / features.length);
+          }
+        });
+      });
+      let avgRating = featuresArr.reduce( (acc, curr) => {
+        return acc + curr;
+      });
+      avgRating = Math.ceil(avgRating/7);
+      
       let toReturn = {};
-      const hostelResults = result[0].rows[0];
-      toReturn['avgRating'] = hostelResults['avgrating'];
-      toReturn['totalReviewCount'] = hostelResults['totalreviewcount'];
+      toReturn['avgRating'] = avgRating;
+      toReturn['totalReviewCount'] = result[0].rowCount;
       toReturn['ratedFeatures'] = [
         {feature: 'Value For Money', 
-        rating: hostelResults['ratedfeatures'][0]},
+        rating: featuresArr[0]},
         {feature: 'Security', 
-        rating: hostelResults['ratedfeatures'][1]},
+        rating: featuresArr[1]},
         {feature: 'Location', 
-        rating: hostelResults['ratedfeatures'][2]},
+        rating: featuresArr[2]},
         {feature: 'Staff', 
-        rating: hostelResults['ratedfeatures'][3]},
+        rating: featuresArr[3]},
         {feature: 'Atmosphere', 
-        rating: hostelResults['ratedfeatures'][4]},
+        rating: featuresArr[4]},
         {feature: 'Cleanliness', 
-        rating: hostelResults['ratedfeatures'][5]},
+        rating: featuresArr[5]},
         {feature: 'Facilities', 
-        rating: hostelResults['ratedfeatures'][6]},
+        rating: featuresArr[6]},
       ];
 
       toReturn['reviews'] = [];
