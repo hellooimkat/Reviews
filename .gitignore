@@ -7,5 +7,7 @@ Postgress/generators/CSVs/
 newrelic
 newrelic.js
 newrelic_agent.log
-process.yml
-hello.yml
+newrelic.yml
+
+HostelWorld.pem
+data.zip
