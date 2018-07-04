@@ -3,6 +3,8 @@ const router = express.Router();
 const db = require('./database');
 const redis = require('./index');
 
+// /api/get/reviews/overview/{{$randomNumber(9000000,10000000)}}
+
 router.get('/:id', (req, res) => {
   const { id } = req.params;
   
@@ -49,6 +51,7 @@ router.get('/:id', (req, res) => {
         }
       });
     });
+
     let avgRating = featuresArr.reduce( (acc, curr) => {
       return acc + curr;
     });
@@ -78,34 +81,3 @@ router.get('/:id', (req, res) => {
 });
 
 module.exports = router;
-
-
-/*
-------------------HOSTELS OVERVIEW:
-SELECT
-totalReviewCount, avgRating, ratedFeatures
-FROM hostels WHERE hostelid = 1;
-
-Optimizations:
-- index on (totalReviewCount, avgRating, ratedFeatures)
-------------------COMMENTS OVERVIEW:
-SELECT
-c.created_at, c.rate, c.text,
-u.country, u.username, u.age, u.status
-FROM comments AS c
-INNER JOIN users AS u ON c.userid = u.userid
-WHERE c.hostelid = 1
-ORDER BY c.created_at DESC
-LIMIT 4;
-
-Optimizations:
-- 
-------------------COUNTRIES OVERVIEW:
-SELECT u.country FROM comments AS c
-INNER JOIN users AS u ON c.userid = u.userid
-WHERE hostelid = 1;
-
-Optimizations:
-- index on comments (hostelid)
-- primary key users userid
-*/

@@ -16,9 +16,9 @@ app.use(cors());
 
 
 app.use('/api/get/reviews/overview', overview);
+app.use('/api/get/reviews/all', sidebar);
 app.use(express.static(path.join(__dirname, '../public/')));
 app.use('/hostels/:id', express.static(path.join(__dirname, '../public/')));
-app.use('/api/get/reviews/all', sidebar);
 app.use('/api/post/comments', post);
 
 // module.exports = redis;

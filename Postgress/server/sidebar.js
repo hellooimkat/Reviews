@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('./database');
 
+// /api/get/reviews/all/{{$randomNumber(9000000,10000000)}}?pageNum=1&eng=false&sortBy=newest
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
@@ -18,21 +19,22 @@ router.get('/:id', (req, res) => {
   }
 
   if (sortBy === 'newest') {
-    qReviews = qReviews + ' ORDER BY c.created_at DESC';
+    qReviews = qReviews + ' ORDER BY c.created_at DESC ';
   } else if (sortBy === 'oldest') {
-    qReviews = qReviews + ' ORDER BY c.created_at ASC';
+    qReviews = qReviews + ' ORDER BY c.created_at ASC ';
   } else if (sortBy === 'topRated') {
-    qReviews = qReviews + ' ORDER BY c.rate DESC';
+    qReviews = qReviews + ' ORDER BY c.rate DESC ';
   } else if (sortBy === 'lowestRated') {
-    qReviews = qReviews + ' ORDER BY c.rate ASC';
+    qReviews = qReviews + ' ORDER BY c.rate ASC ';
   } else if (sortBy === 'ageGroup') {
-    qReviews = qReviews + ' ORDER BY u.age ASC';
+    qReviews = qReviews + ' ORDER BY u.age ASC ';
   }
 
   if (pageNum !== '1') {
     qReviews = qReviews + ` OFFSET ${(Number(pageNum) * 10) - 10}`;
   }
-  qReviews = qReviews + ' LIMIT 10;';
+
+  qReviews = qReviews + 'LIMIT 10;';
 
   const toReturn = {};
   db.query(qReviews)
@@ -60,15 +62,3 @@ router.get('/:id', (req, res) => {
 });
 
 module.exports = router;
-
-/*
--------------------TOTAL OVERVIEW
-SELECT totalengreviews FROM hostels WHERE hostelid = 1;
--------------------REVIEWS OVERVIEW
-SELECT c.created_at, c.language, c.propertyresponse, c.text, c.rate, c.commentid, 
-u.age, u.numofreviews, u.status, u.username, u.country 
-FROM comments AS c 
-INNER JOIN users AS u ON c.userid = u.userid 
-WHERE  c.hostelid = 1 AND c.language = 'ENG' 
-ORDER BY c.created_at DESC LIMIT 10;
-*/

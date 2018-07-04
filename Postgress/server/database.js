@@ -6,7 +6,7 @@ const cn = {
   port: 5432,
   database: 'postgres',
   user: 'postgres',
-  max: 10,
+  max: 25,
 };
 
 module.exports = new Pool(cn);

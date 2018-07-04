@@ -1,19 +1,31 @@
-const { Client } = require('pg');
-const express = require('express');
+const parser = require('body-parser');
+const uuidv4 = require('uuid/v4');const express = require('express');
 const router = express.Router();
+router.use(parser.json());
+const db = require('./database');
 
-// ------------------ post request TO DO
 router.post('/user/:hostelid', (req, res) => {
   const { hostelid } = req.params;
 
+  const { userid } = req.body;
+  const { ratedFeatures } = req.body;
+  const { rate } = req.body;
+  const { created_at } = req.body;
+  const { language } = req.body;
+  const { text } = req.body;
+  const commentid = uuidv4();
+
   const qComment = `INSERT INTO comments
-  (hostelId, userId, ratedFeatures, rate, created_at, language, text) 
-  VALUES (${hostelid}, ${userid}, ${ratedFeatures}, ${rate}, ${created_at}, ${language}, ${text});`;
+  (commentId, hostelId, userId, ratedFeatures, rate, created_at, language, text) 
+  VALUES ('${commentid}', ${hostelid}, '${userid}', '${ratedFeatures}', ${rate}, '${created_at}', '${language}', '${text}');`;
   
-  const comment = db.query(qComment);
+  db.query(qComment)
+    .then( () => {
+      res.send('Comment Created!')
+    })
+    .catch( err => console.log(err));
 });
 
-// ---------------- update property response
 router.post('/property/:hostelid', (req, res) => {
   const { hostelid } = req.params;
   const { response } = req.body;
