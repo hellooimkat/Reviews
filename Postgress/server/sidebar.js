@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('./database');
 
-// /api/get/reviews/all/{{$randomNumber(9000000,10000000)}}?pageNum=1&eng=false&sortBy=newest
+// /api/get/reviews/all/%{*:1-100}?pageNum=1&eng=false&sortBy=newest
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
@@ -58,7 +58,7 @@ router.get('/:id', (req, res) => {
       })};
       res.status(200).send(toReturn);
     })
-    .catch( err => console.log(err));
+    .catch( () => res.status(500));
 });
 
 module.exports = router;

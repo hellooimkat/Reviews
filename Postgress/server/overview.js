@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('./database');
 const redis = require('./index');
 
-// /api/get/reviews/overview/{{$randomNumber(9000000,10000000)}}
+// /api/get/reviews/overview/%{*:9000000-10000000}
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
@@ -77,7 +77,7 @@ router.get('/:id', (req, res) => {
     ];
     res.status(200).send(toReturn);
   })
-  .catch( err => console.log(err));
+  .catch( () => res.status(500));
 });
 
 module.exports = router;

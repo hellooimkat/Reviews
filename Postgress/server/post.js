@@ -26,10 +26,12 @@ router.post('/user/:hostelid', (req, res) => {
     .catch( err => console.log(err));
 });
 
-router.post('/property/:hostelid', (req, res) => {
+router.patch('/property/:hostelid', (req, res) => {
   const { hostelid } = req.params;
-  const { response } = req.body;
+  let { response } = req.body;
   const { userid } = req.body;
+
+  //TODO: xss protection and quote escapes here
 
   const qComment = `UPDATE comments
   SET propertyresponse = '${response}'

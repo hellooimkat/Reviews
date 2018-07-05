@@ -4,7 +4,7 @@
   "description": "",
   "main": "./Postgress/server/index.js",
   "scripts": {
-    "start": "nodemon ./Postgress/server/"
+    "start": "node ./Postgress/server/"
   },
   "repository": {
     "type": "git",
