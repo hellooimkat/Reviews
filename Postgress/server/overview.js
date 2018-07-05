@@ -16,8 +16,10 @@ router.get('/:id', (req, res) => {
   WHERE c.hostelid = ${id}
   ORDER BY c.created_at DESC;`;
 
+  const start = Date.now();
   db.query(qCommentsOverview)
   .then( result => {
+    console.log('QUERY FINISHED', Date.now() - start);
     let toReturn = {};
     toReturn['countryCount'] = {};
     toReturn['reviews'] = [];
@@ -75,6 +77,7 @@ router.get('/:id', (req, res) => {
       {feature: 'Facilities', 
       rating: featuresArr[6]},
     ];
+    console.log('CALCS DONE', Date.now() - start);
     res.status(200).send(toReturn);
   })
   .catch( () => res.status(500));

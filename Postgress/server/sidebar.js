@@ -37,8 +37,10 @@ router.get('/:id', (req, res) => {
   qReviews = qReviews + 'LIMIT 10;';
 
   const toReturn = {};
+  const start = Date.now();
   db.query(qReviews)
     .then( result => {
+      console.log('QUERY FINISHED', Date.now() - start);
       toReturn['total'] = result.rowCount;
       toReturn['reviewSnippet'] = [];
       
@@ -56,6 +58,7 @@ router.get('/:id', (req, res) => {
           status: reviewResults[i]['status'],
           username: reviewResults[i]['username'],
       })};
+      console.log('CALCS DONE', Date.now() - start);
       res.status(200).send(toReturn);
     })
     .catch( () => res.status(500));
