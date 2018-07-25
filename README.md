@@ -23,7 +23,7 @@ Initially, the microservice that I inherited had a page load time of >1s, for on
 From within the root directory:
 npm run start
 
-##Images
+## Images
 > Nginx load balancer used.
 ### Without Redis caching:
 ![noRedis](./images/noRedis.png)<!-- .element height="50%" width="50%" -->
