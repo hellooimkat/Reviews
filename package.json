@@ -2,9 +2,9 @@
   "name": "backendcapstone",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./Postgress/server/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./Postgress/server/"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,10 @@
     "express": "^4.16.3",
     "faker": "^4.1.0",
     "morgan": "^1.9.0",
+    "newrelic": "^4.2.0",
     "nodemon": "^1.17.5",
+    "pg": "^7.4.3",
+    "redis": "^2.8.0",
     "uuid": "^3.2.1"
   }
 }

@@ -14,8 +14,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let hostelId = window.location.pathname.length > 1 ? window.location.pathname.split('/')[1] : 1;
-    this.props.fetchOverviewReviews(hostelId);
+    let hostelId = window.location.pathname;
+    if (hostelId === '/hostels/' || hostelId === '/') {
+      hostelId = 1;
+    } else {
+      hostelId = hostelId.replace(/\/hostels/g, '');
+      hostelId = hostelId.replace(/\//g, '');
+    }
+    this.props.fetchOverviewReviews(Number(hostelId));
   }
 
   render() {

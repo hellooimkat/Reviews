@@ -9,7 +9,7 @@ import {
 
 class ReadAllReviewsButton extends Component {
   handleOnClick() {
-    const { hostelId, isEnglish, sortBy } = this.props;
+    const { hostelId, isEnglish, sortBy } = this.props;    
     this.props.fetchReviewsOnPage(1, hostelId, sortBy, isEnglish);
   }
 
@@ -37,7 +37,7 @@ ReadAllReviewsButton.propTypes = {
 };
 
 const mapStateToProps = ({ overviewReviews, sidebarReducer }) => ({
-  hostelId: overviewReviews.id || '',
+  hostelId: overviewReviews.hostelId,
   isEnglish: sidebarReducer.isEnglish,
   sortBy: sidebarReducer.sortBy
 });

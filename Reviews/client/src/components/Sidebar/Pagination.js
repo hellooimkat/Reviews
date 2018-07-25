@@ -163,7 +163,7 @@ const mapStateToProps = ({ sidebarReducer, overviewReviews }) => ({
   sortBy: sidebarReducer.sortBy,
   isEnglish: sidebarReducer.isEnglish,
   currentPageIndex: sidebarReducer.pageNum,
-  hostelId: overviewReviews.id
+  hostelId: overviewReviews.hostelId
 });
 
 export default connect(

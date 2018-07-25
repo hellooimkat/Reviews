@@ -1,3 +1,13 @@
 *node_modules*
 Cassandra/data/
+Postgress/data/
 Cassandra/generators/CSVs/
+Postgress/generators/CSVs/
+
+newrelic
+newrelic.js
+newrelic_agent.log
+newrelic.yml
+
+HostelWorld.pem
+data.zip

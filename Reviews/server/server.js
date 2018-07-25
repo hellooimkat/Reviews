@@ -9,7 +9,7 @@ require('../dataseeding/Schema/User');
 const Hostel = require('../dataseeding/Schema/Hostel');
 const Review = require('../dataseeding/Schema/Review');
 
-const PORT = process.env.PORT || 3004;
+const PORT = process.env.PORT || 3005;
 
 const app = express();
 

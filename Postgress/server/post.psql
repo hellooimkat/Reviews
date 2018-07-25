@@ -1,0 +1,42 @@
+CREATE TABLE users (
+  userid uuid,
+  userCreatedAt timestamp,
+  firstname varchar(50),
+  lastname varchar(50),
+  username varchar(50),
+  age smallint,
+  email varchar(50),
+  status varchar (20),
+  country varchar(50),
+  numofreviews smallint
+);
+
+\COPY users (userId,userCreatedAt, firstname, lastname,username, age, email, status, country, numOfReviews) FROM './Postgress/generators/CSVs/users.txt' WITH DELIMITER ',' CSV;
+
+CREATE TABLE comments (
+  commentid uuid,
+  hostelid int,
+  userid uuid, 
+  ratedFeatures int ARRAY[7],
+  rate smallint,
+  created_at timestamp,
+  language varchar(50),
+  text text,
+  propertyresponse text
+);
+
+\COPY comments (commentId,hostelId,userId,ratedFeatures,rate,created_at,language,text,propertyResponse) FROM './Postgress/generators/CSVs/comments.txt' WITH NULL 'null' DELIMITER '|' CSV;
+
+
+ALTER TABLE users ADD PRIMARY KEY (userid);
+CREATE INDEX ON users (country);
+
+ALTER TABLE comments ADD PRIMARY KEY (commentid);
+ALTER TABLE comments ADD  FOREIGN KEY(USERID) REFERENCES users(userid);
+CREATE INDEX ON comments (hostelid);
+
+CREATE INDEX ON comments (language, created_at);
+CREATE INDEX ON comments (language, rate);
+CREATE INDEX ON comments (propertyresponse);
+
+ALTER TABLE hostels ADD PRIMARY KEY (hostelid);
